@@ -10,34 +10,22 @@
             "content": "content/about.md"
         },
         {
-            "icon": "📖",
-            "name": "Notes",
+            "icon": "📝",
+            "name": "Noted",
             "link": "/blogs",
             "content": "content/blogs.html"
         },
         {
-            "icon": "bi bi-suitcase-lg-fill",
-            "name": "Work Experience",
+            "icon": "🐓",
+            "name": "Chickens",
             "link": "/experience",
             "content": "content/experience.md"
         },
         {
-            "icon": "🔥",
-            "name": "Open source",
+            "icon": "🐟",
+            "name": "Fish Food",
             "link": "/open-source",
             "content": "content/projects.html"
-        },
-        {
-            "icon": "✨",
-            "name": "skills",
-            "link": "/skills",
-            "content": "content/skills.md"
-        },
-        {
-            "icon": "✉️",
-            "name": "Contact",
-            "link": "/contact",
-            "content": "content/contact.md"
         }
     ]
 
