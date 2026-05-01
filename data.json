@@ -11,7 +11,7 @@
         },
         {
             "icon": "📖",
-            "name": "Blogs",
+            "name": "Notes",
             "link": "/blogs",
             "content": "content/blogs.html"
         },
