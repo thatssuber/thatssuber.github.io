@@ -1,4 +1,4 @@
-## This is Paul's Notion portfolio
+## That's Suber LLC
 
 I am Paul, open-source dev. I create apps and websites for start-ups, solopreneurs, corporations and local businesses. I truly enjoy helping businesses achieve their goals by delivering an exceptional websites and apps that communicates their business value to their target audience.
 
