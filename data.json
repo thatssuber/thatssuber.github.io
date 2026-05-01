@@ -1,10 +1,10 @@
 {
-    "name": "Paul's portfolio",
-    "icon": "./assets/images/home/paul.png",
+    "name": "That's Suber",
+    "icon": "👋🏾",
 
     "pages": [
         {
-            "icon": "./assets/images/home/paul.png",
+            "icon": "📌",
             "name": "About",
             "link": "/about",
             "content": "content/about.md"
