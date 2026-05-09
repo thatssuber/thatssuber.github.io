@@ -1,155 +1,597 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>That's Suber</title>
-        <meta name="description" content="" />
-        <link
-            rel="shortcut icon"
-            href="./assets/logo.png"
-            type="image/x-icon"
-        />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>That's Suber — Apps that matter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        <!-- Open Graph / Facebook -->
-        <meta property="og:title" content="Title of the project" />
-        <meta property="og:description" content="" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://github.com/PaulleDemon" />
-        <!--Replace with the current website url-->
-        <meta property="og:image" content="" />
+    :root {
+      --black: #0f0f0f;
+      --white: #fafaf8;
+      --gray: #6b6b6b;
+      --light: #f0efeb;
+      --accent: #0f0f0f;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+    }
 
-        <!-- <link rel="stylesheet" href="../../tailwind-css/tailwind-runtime.css" /> -->
-        <link rel="stylesheet" href="./css/tailwind-build.css" />
-        <link rel="stylesheet" href="css/index.css" />
-        <link rel="stylesheet" href="css/content.css" />
+    html { scroll-behavior: smooth; }
 
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
-            integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-        />
-    </head>
-    <body
-        class="tw-flex tw-min-h-[100vh] tw-flex-col tw-text-base tw-bg-[#fff] tw-overflow-hidden tw-font-sans"
-    >
+    body {
+      font-family: var(--sans);
+      background: var(--white);
+      color: var(--black);
+      overflow-x: hidden;
+    }
 
-        <div class="tw-flex tw-h-[100vh] tw-w-full">
-            <section
-                class="tw-relative tw-bg-secondary tw-text-textColor tw-flex tw-min-h-[100vh] tw-max-w-[240px] tw-min-w-[240px] tw-flex-col 
-                        tw-overflow-hidden  max-md:tw-mt-[50px] "
-            >
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(250, 250, 248, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
 
-                <div class="tw-w-full tw-gap-2 tw-flex tw-p-4 tw-flex-col">
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 20px;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
 
-                    <div class="page-link tw-flex tw-flex-gap-1">
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
 
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--gray);
+      text-decoration: none;
+      letter-spacing: 0.2px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--black); }
 
-                        <div class="">That's Suber</div>
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+    }
 
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
 
-                    </div>
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(52px, 8vw, 96px);
+      line-height: 1.05;
+      letter-spacing: -2px;
+      color: var(--black);
+      max-width: 800px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.4s;
+    }
 
-                    <button onclick="openSearch()" class="page-link tw-text-base tw-flex tw-flex-gap-1">
-                        <i class="bi bi-search"></i>
-                        <div class="">Search</div>
-                    </button>
+    .hero-title em {
+      font-style: italic;
+      color: var(--gray);
+    }
 
-                    <button onclick="loadPage('/about')" class="page-link tw-text-base tw-flex tw-flex-gap-1">
-                        <i class="bi bi-house"></i>
-                        <div class="">Home</div>
-                    </butto>
+    .hero-sub {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--gray);
+      max-width: 440px;
+      line-height: 1.7;
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.6s;
+    }
 
-                </div>
+    .hero-cta {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--black);
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 100px;
+      letter-spacing: 0.3px;
+      transition: opacity 0.2s;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.8s;
+    }
+    .hero-cta:hover { opacity: 0.75; }
 
-                <div class="tw-mt-4 tw-px-4 tw-text-sm">
-                    Projects
-                </div>
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      color: var(--gray);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1.2s;
+    }
 
-                <div
-                    class="tw-flex tw-px-4 tw-p-1 tw tw-overflow-y-auto tw-h-full tw-min-h-[100vh] tw-w-full tw-gap-1 tw-flex-col"
-                    id="sidebar-content"
-                >   
-                    
-                </div>
-            </section>
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: var(--gray);
+      animation: scrollLine 1.5s ease infinite;
+    }
 
-            <section
-                class="tw-relative tw-bg-white tw-flex tw-h-full tw-w-full tw-max-w-[100vw] tw-flex-col"
-                
-            >   
+    @keyframes scrollLine {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      51% { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
 
-                <div class="tw-flex tw-w-full tw-text-sm tw-p-2" id="title">
+    /* DIVIDER */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(0,0,0,0.08);
+    }
 
-                </div>
+    /* APPS SECTION */
+    .apps {
+      padding: 120px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
 
-                <div class="tw-overflow-auto tw-min-h-[30vh] tw-h-full tw-px-[25%] tw-w-full">
-                    <div class="tw-w-full tw-flex tw-mt-[140px]">
-                        <div class="tw-w-[85px] tw-h-[85px] tw-flex tw-place-content-center tw-items-center tw-text-6xl tw-overflow-hidden tw-text-6xl tw-rounded-lg" id="content-icon">
+    .section-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 64px;
+    }
 
-                        </div>
-                    </div>
-                    <div
-                        class="tw-mt-8 tw-gap-10 content tw-pb-[30vh]" id="content"
-                    >
-                        
-                    </div>
-                </div>
-            </section>
-        
+    .app-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      padding: 64px 0;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .app-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .app-card-icon {
+      width: 72px;
+      height: 72px;
+      background: var(--black);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      font-size: 32px;
+    }
+
+    .app-card-tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 12px;
+    }
+
+    .app-card-title {
+      font-family: var(--serif);
+      font-size: 42px;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .app-card-desc {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--gray);
+      line-height: 1.75;
+      margin-bottom: 32px;
+      max-width: 360px;
+    }
+
+    .app-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--black);
+      text-decoration: none;
+      border-bottom: 1px solid var(--black);
+      padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+    .app-card-link:hover { opacity: 0.5; }
+
+    .app-card-visual {
+      background: var(--light);
+      border-radius: 24px;
+      height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .app-mockup {
+      width: 180px;
+      background: white;
+      border-radius: 28px;
+      padding: 16px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.12);
+      transform: rotate(-2deg);
+    }
+
+    .mockup-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .mockup-title {
+      font-family: var(--serif);
+      font-size: 16px;
+    }
+
+    .mockup-icon { font-size: 14px; }
+
+    .mockup-tags {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .mockup-tag {
+      font-size: 9px;
+      padding: 2px 7px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    .mockup-note {
+      background: var(--light);
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 8px;
+    }
+
+    .mockup-note-title {
+      font-size: 10px;
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+
+    .mockup-note-body {
+      font-size: 8px;
+      color: var(--gray);
+      line-height: 1.4;
+    }
+
+    .mockup-divider {
+      height: 0.5px;
+      background: rgba(0,0,0,0.08);
+      margin: 6px 0;
+    }
+
+    /* COMING SOON cards */
+    .coming-soon-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .coming-card {
+      background: var(--light);
+      border-radius: 20px;
+      padding: 32px 24px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .coming-card.visible { opacity: 1; transform: translateY(0); }
+    .coming-card:nth-child(2) { transition-delay: 0.1s; }
+    .coming-card:nth-child(3) { transition-delay: 0.2s; }
+
+    .coming-card-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    .coming-card-title {
+      font-family: var(--serif);
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .coming-card-desc {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .coming-badge {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gray);
+      border: 1px solid rgba(0,0,0,0.15);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* ABOUT */
+    .about {
+      padding: 120px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .about-title {
+      font-family: var(--serif);
+      font-size: clamp(36px, 4vw, 52px);
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+    }
+
+    .about-title em { font-style: italic; color: var(--gray); }
+
+    .about-text {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--gray);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(0,0,0,0.08);
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--black); }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--gray);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 24px 80px; }
+      .apps { padding: 80px 24px; }
+      .app-card { grid-template-columns: 1fr; gap: 40px; }
+      .about { grid-template-columns: 1fr; padding: 80px 24px; gap: 40px; }
+      .coming-soon-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 24px; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">That's Suber</a>
+    <ul class="nav-links">
+      <li><a href="#apps">Apps</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="noted.html">Noted</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">That's Suber</p>
+    <h1 class="hero-title">Apps built with <em>intention</em></h1>
+    <p class="hero-sub">We make simple, beautiful tools for everyday life. No clutter. No noise. Just what you need.</p>
+    <a href="#apps" class="hero-cta">See our apps</a>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- APPS -->
+  <section class="apps" id="apps">
+    <p class="section-label">Our Apps</p>
+
+    <!-- Noted -->
+    <div class="app-card" id="noted-card">
+      <div>
+        <div class="app-card-icon">📝</div>
+        <p class="app-card-tag">Notes · iOS</p>
+        <h2 class="app-card-title">Noted</h2>
+        <p class="app-card-desc">Your thoughts, your feed. A fresh take on note-taking that feels like a social app — organized by tags, beautifully simple.</p>
+        <a href="noted.html" class="app-card-link">Learn more →</a>
+      </div>
+      <div class="app-card-visual">
+        <div class="app-mockup">
+          <div class="mockup-bar">
+            <span class="mockup-title">Noted</span>
+            <span class="mockup-icon">✏️</span>
+          </div>
+          <div class="mockup-tags">
+            <span class="mockup-tag" style="background:#eeedfe;color:#3c3489">Ideas</span>
+            <span class="mockup-tag" style="background:#e1f5ee;color:#085041">Work</span>
+            <span class="mockup-tag" style="background:#fbeaf0;color:#72243e">Personal</span>
+          </div>
+          <div class="mockup-note">
+            <div class="mockup-note-title">Build something cool</div>
+            <div class="mockup-note-body">Try SwiftUI this weekend!</div>
+          </div>
+          <div class="mockup-divider"></div>
+          <div class="mockup-note">
+            <div class="mockup-note-title">Team sync recap</div>
+            <div class="mockup-note-body">Q2 priorities: onboarding and search.</div>
+          </div>
+          <div class="mockup-divider"></div>
+          <div class="mockup-note">
+            <div class="mockup-note-title">Thinking Fast and Slow</div>
+            <div class="mockup-note-body">The anchoring effect is everywhere.</div>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <div class="tw-fixed tw-hidden tw-z-10 tw-top-0 tw-flex tw-w-full tw-h-full tw-bg-[#2f2f2fb3]" id="search-bg-container">
-
-            <div class="tw-relative tw-flex tw-w-full tw-h-full ">
-                <div id="search-container" class="tw-absolute  tw-text-gray-500 tw-overflow-hidden tw-left-[50%] tw--translate-x-[50%] tw-top-24 tw-w-[750px] tw-h-[500px] tw-bg-white tw-rounded-xl">
-
-                    <div class="tw-flex tw-px-4 tw-p-2 tw-text-lg tw-w-full tw-place-items-center tw-gap-2">
-                        <i class="bi bi-search"></i>
-                        <input type="text" oninput="updateSearch(event)" class="tw-w-full input" autofocus placeholder="Search" id="search-input">
-                    </div>
-
-                    <div class="tw-w-full tw-h-[2px] tw-bg-[#ededec]"></div>
-
-                    <div class="tw-flex tw-flex-col tw-p-2 tw-text-textColor tw-h-[400px]  tw-overflow-y-auto">
-
-                        <div class="tw-text-[12px] tw-text-[#93928f]">
-                            Today
-                        </div>
-
-                        <div class="tw-flex tw-flex-col" id="search-dropdown">
-                            <div class="tw-flex tw-rounded-md tw-p-2 tw-px-3 tw-w-full hover:tw-bg-[#f1f0ef]">
-                                edwed
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tw-w-full tw-h-[2px] tw-bg-[#ededec]"></div>
-
-                    <div class="tw-w-full tw-h-[30px]">
-
-                    </div>
-
-                </div>
-            </div>
+    <!-- Coming Soon -->
+    <div style="padding: 64px 0; border-top: 1px solid rgba(0,0,0,0.08);">
+      <p class="app-card-tag" style="margin-bottom: 32px;">Coming Soon</p>
+      <div class="coming-soon-grid">
+        <div class="coming-card" id="cc1">
+          <div class="coming-card-icon">🎯</div>
+          <h3 class="coming-card-title">Focus</h3>
+          <p class="coming-card-desc">A minimal habit and goal tracker built for people who hate habit trackers.</p>
+          <span class="coming-badge">In development</span>
         </div>
+        <div class="coming-card" id="cc2">
+          <div class="coming-card-icon">💸</div>
+          <h3 class="coming-card-title">Spent</h3>
+          <p class="coming-card-desc">Expense tracking that doesn't make you feel bad about your coffee habit.</p>
+          <span class="coming-badge">Coming soon</span>
+        </div>
+        <div class="coming-card" id="cc3">
+          <div class="coming-card-icon">🌤️</div>
+          <h3 class="coming-card-title">Ease</h3>
+          <p class="coming-card-desc">A daily journaling app that asks you just one question a day.</p>
+          <span class="coming-badge">Coming soon</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    </body>
+  <div class="divider"></div>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/arduino-light.min.css" integrity="sha512-M4nH9C7TRCVWLGruh9fHTfYxGWDiKpOGNjpfC9irhF06aLiYmJczZlW+/6IKOZ+75AGk4Wn4clgd6J13T0zzXg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js" integrity="sha512-6yoqbrcLAHDWAdQmiRlHG4+m0g/CT/V9AGyxabG8j7Jk8j3r3K6due7oqpiRMZqcYe9WM2gPcaNNxnl2ux+3tA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div>
+      <h2 class="about-title">Built by one person, <em>for everyone</em></h2>
+    </div>
+    <div>
+      <p class="about-text">That's Suber is an independent app studio focused on making tools that respect your time and attention. Every app we ship is designed to do one thing well.</p>
+      <p class="about-text">We believe software should feel good to use — not overwhelming, not bloated. Just simple, thoughtful, and useful.</p>
+    </div>
+  </section>
 
-    <script src="
-    https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js
-    "></script>
+  <div class="divider"></div>
 
-    <script src="./scripts/utils.js"></script>
-    <script src="./scripts/plugins.js"></script>
-    <script src="./index.js"></script>
+  <!-- FOOTER -->
+  <footer>
+    <a href="index.html" class="footer-logo">That's Suber</a>
+    <ul class="footer-links">
+      <li><a href="noted.html">Noted</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="mailto:hello@thatssuber.com">Contact</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 That's Suber</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+
+    ['noted-card', 'cc1', 'cc2', 'cc3'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+  </script>
+</body>
 </html>
-
