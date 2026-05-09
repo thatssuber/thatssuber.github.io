@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Noted — That's Suber</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0f0f0f;
+      --white: #fafaf8;
+      --gray: #6b6b6b;
+      --light: #f0efeb;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--white); color: var(--black); overflow-x: hidden; }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .nav-logo { font-family: var(--serif); font-size: 20px; color: var(--black); text-decoration: none; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 14px; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--black); }
+
+    /* HERO */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 140px 24px 80px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+      border: 1px solid rgba(0,0,0,0.12);
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.2s;
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(56px, 10vw, 112px);
+      line-height: 1;
+      letter-spacing: -3px;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.4s;
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--gray);
+      max-width: 420px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.6s;
+    }
+
+    .hero-badges {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.8s;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--gray);
+      background: var(--light);
+      padding: 8px 16px;
+      border-radius: 100px;
+    }
+
+    /* FEATURES */
+    .features {
+      padding: 100px 48px;
+      max-width: 1000px;
+      margin: 0 auto;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 56px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+
+    .feature {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .feature.visible { opacity: 1; transform: translateY(0); }
+    .feature:nth-child(2) { transition-delay: 0.1s; }
+    .feature:nth-child(3) { transition-delay: 0.2s; }
+    .feature:nth-child(4) { transition-delay: 0.05s; }
+    .feature:nth-child(5) { transition-delay: 0.15s; }
+    .feature:nth-child(6) { transition-delay: 0.25s; }
+
+    .feature-icon { font-size: 28px; margin-bottom: 16px; }
+    .feature-title { font-family: var(--serif); font-size: 22px; margin-bottom: 10px; }
+    .feature-desc { font-size: 14px; color: var(--gray); line-height: 1.7; font-weight: 300; }
+
+    /* TAGS SECTION */
+    .tags-section {
+      padding: 100px 48px;
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+    }
+
+    .tags-title {
+      font-family: var(--serif);
+      font-size: clamp(32px, 5vw, 56px);
+      letter-spacing: -1.5px;
+      margin-bottom: 16px;
+    }
+
+    .tags-sub {
+      font-size: 16px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 48px;
+    }
+
+    .tags-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .tag-chip {
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 100px;
+    }
+
+    /* DOWNLOAD */
+    .download {
+      padding: 120px 48px;
+      text-align: center;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .download-title {
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 64px);
+      letter-spacing: -1.5px;
+      margin-bottom: 16px;
+    }
+
+    .download-sub {
+      font-size: 16px;
+      color: var(--gray);
+      font-weight: 300;
+      margin-bottom: 40px;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--black);
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 500;
+      padding: 16px 36px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .download-btn:hover { opacity: 0.75; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(0,0,0,0.08);
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo { font-family: var(--serif); font-size: 18px; color: var(--black); text-decoration: none; }
+    .footer-links { display: flex; gap: 28px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--black); }
+    .footer-copy { font-size: 12px; color: var(--gray); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .features { padding: 80px 24px; }
+      .features-grid { grid-template-columns: 1fr; gap: 36px; }
+      .tags-section { padding: 80px 24px; }
+      .download { padding: 80px 24px; }
+      footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">That's Suber</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="hero-tag">iOS App</span>
+    <h1 class="hero-title">Noted</h1>
+    <p class="hero-sub">Your thoughts, your feed. Note-taking that feels like a social app.</p>
+    <div class="hero-badges">
+      <span class="badge">📝 Notes</span>
+      <span class="badge">🏷 Tags</span>
+      <span class="badge">🔍 Search</span>
+      <span class="badge">❤️ Likes</span>
+      <span class="badge">📱 iOS</span>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <p class="section-label">Features</p>
+    <div class="features-grid">
+      <div class="feature" id="f1">
+        <div class="feature-icon">📰</div>
+        <h3 class="feature-title">Feed style</h3>
+        <p class="feature-desc">Your notes show up like a social feed — scroll through your thoughts like you'd scroll through posts.</p>
+      </div>
+      <div class="feature" id="f2">
+        <div class="feature-icon">🏷️</div>
+        <h3 class="feature-title">Tags & filters</h3>
+        <p class="feature-desc">Organize notes by Ideas, Work, Personal, To-do, or Research. Filter instantly with one tap.</p>
+      </div>
+      <div class="feature" id="f3">
+        <div class="feature-icon">🔍</div>
+        <h3 class="feature-title">Search</h3>
+        <p class="feature-desc">Find any note instantly. Search across titles and content in real time.</p>
+      </div>
+      <div class="feature" id="f4">
+        <div class="feature-icon">❤️</div>
+        <h3 class="feature-title">Like your notes</h3>
+        <p class="feature-desc">Heart the notes that matter most. A simple way to highlight your best thinking.</p>
+      </div>
+      <div class="feature" id="f5">
+        <div class="feature-icon">✏️</div>
+        <h3 class="feature-title">Edit anytime</h3>
+        <p class="feature-desc">Tap any note to edit it. Your thoughts evolve — your notes should too.</p>
+      </div>
+      <div class="feature" id="f6">
+        <div class="feature-icon">💾</div>
+        <h3 class="feature-title">Always saved</h3>
+        <p class="feature-desc">Notes are saved automatically on your device. No account needed to get started.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAGS -->
+  <section class="tags-section">
+    <h2 class="tags-title">Everything has its place</h2>
+    <p class="tags-sub">Five built-in tags keep your notes organized without any effort.</p>
+    <div class="tags-row">
+      <span class="tag-chip" style="background:#eeedfe;color:#3c3489">💡 Ideas</span>
+      <span class="tag-chip" style="background:#e1f5ee;color:#085041">💼 Work</span>
+      <span class="tag-chip" style="background:#fbeaf0;color:#72243e">🌸 Personal</span>
+      <span class="tag-chip" style="background:#faeeda;color:#633806">✅ To-do</span>
+      <span class="tag-chip" style="background:#e6f1fb;color:#0c447c">🔬 Research</span>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD -->
+  <section class="download">
+    <h2 class="download-title">Start noting today</h2>
+    <p class="download-sub">Free on the App Store. No account required.</p>
+    <a href="#" class="download-btn">
+      🍎 Download on the App Store
+    </a>
+  </section>
+
+  <div style="height:1px;background:rgba(0,0,0,0.08)"></div>
+
+  <footer>
+    <a href="index.html" class="footer-logo">That's Suber</a>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="mailto:hello@thatssuber.com">Contact</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 That's Suber</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+    ['f1','f2','f3','f4','f5','f6'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+  </script>
+</body>
+</html>
